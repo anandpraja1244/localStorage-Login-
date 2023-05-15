@@ -9,7 +9,7 @@ const Cart = () => {
     const handleRemove = (productId) => {
         dispatch(remove(productId));
     };
-
+    
     return (
         <div>
             <h3>Cart</h3>

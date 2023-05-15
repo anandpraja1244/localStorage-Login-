@@ -22,7 +22,7 @@ img {
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
 }
-.btn {
+/* .btn {
   border: none;
   outline: none;
   background: #764abc;
@@ -32,7 +32,7 @@ img {
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-}
+} */
 
 .btn:hover {
   background: #513282;

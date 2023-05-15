@@ -11,9 +11,9 @@ function Quizfrst() {
     <div>
       <h2> Quiz App</h2>
       <QuizContext.Provider value={{ gameStates, setGameStates,  score, setScore }}>
-        {gameStates === "menu" && <MainMenu />}
+        {gameStates === "menu" && <MainMenu/>}
         {gameStates === "quiz" && <Quiz/>}
-        {gameStates === "endscreen" && <EndScreen />}
+        {gameStates === "endscreen" && <EndScreen/>}
       </QuizContext.Provider>
     </div>
   );

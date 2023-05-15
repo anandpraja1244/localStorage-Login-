@@ -1,109 +1,94 @@
-// import React, { useState } from "react";
+import React, { useState } from "react";
 
-// function FormField() {
-//   const [formData, setFormData] = useState("");
-//   const [newData, setNewData] = useState("");
- 
-//   const [data, setData] = useState([]);
-//   // console.log('object :sssss>> ', formData);
-//   const handelOnChange = (e) => {
-    
-//     setFormData(e.target.value);
+function FormField() {
+  const [formInpute, setFormInpute] = useState("");
+  const [data, setData] = useState([]);
+  const [inputeNew, setInputeNew] = useState("");
+  const [inputePass, setInputePass] = useState(null);
+
+  // start here Add Form Submit function........
+  const handelSubmitData = (e) => {
+    e.preventDefault();
+    const newDataForm = {
+      id: new Date().getTime().toString(),
+      name: formInpute,
+    };
+    setData([...data, newDataForm]);
+  };
+
+  // start here delete function........
+  function handleDeleteClick(id) {
+   const newUpdate= data.filter((item)=>item.id !==id )
+   setData(newUpdate)
+  }
+
+  // start here Edit function........
+  const handleEditClick = (id) => {
    
-//   };
+           const  editData = data?.find((item)=>item.id ===id )
+           setInputeNew(editData)
+           setInputePass(id)
+        
+  };
 
-
-//   const handelButton = (e) => {
-//     e.preventDefault();
-
-//     setData([...data, formData]);
-//     setFormData("");
-//   };
-
-//   const deleteData = (ind) => {
-//     const removeItem = data.filter((todo, id) => {
-//       console.log("object :>> ", id);
-//       return id !== ind;
-//     });
-//     setData(removeItem);
-//   };
-//   const updateData = (val, ind) => {
-//     setNewData(val, ind);
+  // start here Edit Form Submit function........
+  const handelEditData = (e) => {
+    e.preventDefault();
+    const finalData = data.map((item)=>{
+      if(item.id === inputePass){
+        return {...item, name:inputeNew }
+       } else{
+        return item
+       }
+    })
+    console.log('first====>', finalData)
+    setData(finalData)
    
-//     console.log("object :>> ", val, ind);
-//   };
+      
+  };
 
-//   // const handelOnChangenew = () => {};
-//   const updateDataSub = (e) => {
-//     e.preventDefault();
-//     // setFormData(newData)
-//   { data.map((val, i) =>{
-// console.log('object :>> ', val);
-//     // if (val.id === newData.i) {
-//     //   return {
-//     //              formData
-//     //   };
-//     // } 
+  return (
+    <div>
+      <h2>Todo</h2>
+      <div>
+        <form onSubmit={handelSubmitData}>
+          <input
+            type="text"
+            placeholder="type"
+            onChange={(e) => setFormInpute(e.target.value)}
+          />
+          <button type="submit" className="btn btn-danger">
+            Add
+          </button>
+        </form>
+      </div>
 
-//   });
-// } 
-//   // setData(newVal)
-       
-//   };
+      <div>
+        <ul className="todo-list">
+          {data?.map((item,i) => {
+        
+            return (
+              <>
+                <li>{item?.name} </li>
 
-//   return (
-//     <div>
-//       <form onSubmit={handelButton}>
-//         <input
-//           type="text"
-//           placeholder="Enter here..."
-//           name="name"
-//           onChange={handelOnChange}
-//         />
-//         <button type="submit"> Add </button>
-//       </form>
-//       <div>
-//         {data.map((val, ind) => {
-//           return (
-//             <>
-//               <li>
-//                 {val}
-//                 <button
-//                   type="submit"
-//                   className="btn btn-danger"
-//                   onClick={() => deleteData(ind)}
-//                 >
-//                   delete
-//                 </button>
-//                 <button
-//                   type="submit"
-//                   className="btn btn-danger"
-//                   onClick={() => updateData(val, ind)}
-//                 >
-//                   update
-//                 </button>
-//               </li>
-//             </>
-//           );
-//         })}
-//       </div>
-//       <div>
-//         <input
-//           type="text"
-//           placeholder="Enter here..."
-//           value={newData}
-//           onChange={(e) => setNewData(e.target.value)}
-//         />
-//         <button
-//           type="submit"
-//           className="btn btn-danger"
-//           onClick={updateDataSub}
-//         >
-//           subNew
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
+                <button onClick={() => handleDeleteClick(item?.id)}>Delete</button>
+                <button onClick={() => handleEditClick(item?.id)}>Edit</button>
+              </>
+            );
+          })}
+        </ul>
+      </div>
+      <div></div>
+      <div>
+        <form onSubmit={handelEditData}>
+          <input type="text" placeholder="type" value={inputeNew.name}  onChange={(e)=>setInputeNew(e.target.value)} />
+          <button type="submit" className="btn btn-danger">
+            Add
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
 
-// export default FormField;
+export default FormField;
